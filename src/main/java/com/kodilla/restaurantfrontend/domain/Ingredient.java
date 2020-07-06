@@ -10,11 +10,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Ingredient {
-    private Long id;
+    private String id;
     private String name;
     private String type;
-    private Double quantity;
+    private String quantity;
     private String measureUnit;
-    private Double price;
+    private String price;
     private String description;
 }
