@@ -17,4 +17,17 @@ public class Ingredient {
     private String measureUnit;
     private String price;
     private String description;
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", measureUnit='" + measureUnit + '\'' +
+                ", price='" + price + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }
