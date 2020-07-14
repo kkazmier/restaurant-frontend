@@ -6,14 +6,20 @@ import com.kodilla.restaurantfrontend.service.IngredientService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.selection.SingleSelect;
 import com.vaadin.flow.router.Route;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Route("ingredients")
 public class IngredientsView extends VerticalLayout {
+    Logger logger = LoggerFactory.getLogger(IngredientsView.class);
     private IngredientService service = new IngredientService();
-    Button mainViewBtn = new Button("Strona główna");
+    private Button mainViewBtn = new Button("Strona główna");
     private Grid<Ingredient> grid = new Grid<>(Ingredient.class);
     private IngredientForm form = new IngredientForm(this);
+    private SingleSelect<Grid<Ingredient>, Ingredient> selectedRow = grid.asSingleSelect();
+    private Ingredient selectedIngredient;
 
     public IngredientsView() {
         addClickListeners();
@@ -31,6 +37,13 @@ public class IngredientsView extends VerticalLayout {
                 e -> mainViewBtn.getUI().ifPresent(
                         ui -> ui.navigate("")
                 ));
+        grid.addItemDoubleClickListener(e -> {
+            logger.info("double click on: " + e.getItem().toString());
+
+        });
+        selectedRow.addValueChangeListener(e -> {
+            selectedIngredient = e.getValue();
+        });
     }
 
     public void setGridProperties(){
@@ -45,5 +58,14 @@ public class IngredientsView extends VerticalLayout {
 
     public void refresh(){
         grid.setItems(service.getIngredients());
+    }
+
+    public Long getIdSelectedIngredient(){
+        if(selectedIngredient != null){
+            return Long.parseLong(selectedIngredient.getId());
+        }
+        else {
+            return -1L;
+        }
     }
 }

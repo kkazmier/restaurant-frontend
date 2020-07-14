@@ -39,6 +39,12 @@ public class IngredientService {
         restTemplate.postForObject(url, backendIngredient, BackendIngredient.class);
     }
 
+    public void deleteIngredient(Long id){
+        String url = endpoint + "delete/" + id;
+        restTemplate.delete(url);
+        logger.info("deleted ingredient has id: " + id);
+    }
+
     private URI createUrl(String name, BackendIngredient ingredient){
         URI url = UriComponentsBuilder.fromHttpUrl(endpoint + name)
                 .queryParam("name", ingredient.getName())

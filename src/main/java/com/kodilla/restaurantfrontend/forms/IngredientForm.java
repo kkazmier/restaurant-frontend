@@ -62,7 +62,8 @@ public class IngredientForm extends FormLayout {
     }
 
     private void delete(){
-        Ingredient ingredient = binder.getBean();
-
+        Long id = ingredientsView.getIdSelectedIngredient();
+        service.deleteIngredient(id);
+        ingredientsView.refresh();
     }
 }
