@@ -33,10 +33,23 @@ public class IngredientService {
         return Arrays.asList(ofNullable(response).orElse(new Ingredient[0]));
     }
 
-    public void saveIngredient(Ingredient ingredient){
+    public Ingredient getIngredient(Long id){
+        String url = endpoint + "get/" + id;
+        Ingredient response = restTemplate.getForObject(url, Ingredient.class);
+        logger.info("get " + response.toString());
+        return response;
+    }
+
+    public void createIngredient(Ingredient ingredient){
         BackendIngredient backendIngredient = mapper.mapToBackendIngredient(ingredient);
         URI url = createUrl("create", backendIngredient);
         restTemplate.postForObject(url, backendIngredient, BackendIngredient.class);
+    }
+
+    public void saveIngredient(Ingredient ingredient){
+        BackendIngredient backendIngredient = mapper.mapToBackendIngredient(ingredient);
+        URI url = createUrl("update", backendIngredient);
+        restTemplate.put(url, backendIngredient);
     }
 
     public void deleteIngredient(Long id){

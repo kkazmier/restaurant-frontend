@@ -43,6 +43,7 @@ public class IngredientsView extends VerticalLayout {
         });
         selectedRow.addValueChangeListener(e -> {
             selectedIngredient = e.getValue();
+            form.getBinder().setBean(selectedIngredient);
         });
     }
 

@@ -12,6 +12,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.converter.StringToDoubleConverter;
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,13 +20,14 @@ public class IngredientForm extends FormLayout {
     private final Logger logger = LoggerFactory.getLogger(IngredientForm.class);
 
     private IngredientsView ingredientsView;
-    private TextField id = new TextField("Id");
+    //private TextField id = new TextField("Id");
     private TextField name = new TextField("Nazwa");
     private TextField type = new TextField("Rodzaj");
     private TextField quantity = new TextField("Ilość");
     private TextField measureUnit = new TextField("Jednostka miary");
     private TextField price = new TextField("Cena");
     private TextField description = new TextField("Opis");
+    private Button newBtn = new Button("Nowy");
     private Button saveBtn = new Button("Zapisz");
     private Button deleteBtn = new Button("Usuń");
     private Binder<Ingredient> binder = new Binder<>(Ingredient.class);
@@ -33,8 +35,8 @@ public class IngredientForm extends FormLayout {
 
     public IngredientForm(IngredientsView ingredientView){
         this.ingredientsView = ingredientView;
-        HorizontalLayout buttons = new HorizontalLayout(saveBtn, deleteBtn);
-        add(id, name, type, quantity, measureUnit, price, description, buttons);
+        HorizontalLayout buttons = new HorizontalLayout(saveBtn, deleteBtn, newBtn);
+        add(name, type, quantity, measureUnit, price, description, buttons);
         binder.bindInstanceFields(this);
         Ingredient ingredient = new Ingredient();
         ingredient.setId("0");
@@ -51,19 +53,34 @@ public class IngredientForm extends FormLayout {
     public void addClickListeners(){
         saveBtn.addClickListener(e -> save());
         deleteBtn.addClickListener(e -> delete());
+        newBtn.addClickListener(e -> newIngredient());
     }
 
     private void save(){
         Ingredient ingredient = binder.getBean();
-        logger.info("Save: " + ingredient.toString());
-        service.saveIngredient(ingredient);
-        ingredientsView.refresh();
-
+        if(ingredient != null){
+            logger.info("Save: " + ingredient.toString());
+            service.saveIngredient(ingredient);
+            ingredientsView.refresh();
+        } else {
+            logger.info("Ingredient doesn't exist.");
+        }
     }
 
     private void delete(){
         Long id = ingredientsView.getIdSelectedIngredient();
         service.deleteIngredient(id);
         ingredientsView.refresh();
+    }
+
+    private void newIngredient(){
+        Ingredient ingredient = binder.getBean();
+        logger.info("New: " + ingredient.toString());
+        service.createIngredient(ingredient);
+        ingredientsView.refresh();
+    }
+
+    public Binder<Ingredient> getBinder(){
+        return binder;
     }
 }
