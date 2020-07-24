@@ -33,6 +33,13 @@ public class IngredientService {
         return Arrays.asList(ofNullable(response).orElse(new Ingredient[0]));
     }
 
+    public List<Ingredient> getIngredientsNotDependToDish(){
+        String url = endpoint + "notDependToDish";
+        Ingredient[] response = restTemplate.getForObject(url, Ingredient[].class);
+        logger.info("get " + response.length + " ingredient(s) not depend to dish");
+        return Arrays.asList(ofNullable(response).orElse(new Ingredient[0]));
+    }
+
     public Ingredient getIngredient(Long id){
         String url = endpoint + "get/" + id;
         Ingredient response = restTemplate.getForObject(url, Ingredient.class);

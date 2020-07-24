@@ -3,6 +3,7 @@ package com.kodilla.restaurantfrontend.service;
 import com.kodilla.restaurantfrontend.backend.BackendDish;
 import com.kodilla.restaurantfrontend.backend.BackendIngredient;
 import com.kodilla.restaurantfrontend.domain.Dish;
+import com.kodilla.restaurantfrontend.domain.Ingredient;
 import com.kodilla.restaurantfrontend.mapper.DishMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,6 +55,12 @@ public class DishService {
         String url = endpoint + "delete/" + id;
         restTemplate.delete(url);
         logger.info("deleted dish has id: " + id);
+    }
+
+    public List<Ingredient> getIngredients(Long id){
+        String url = endpoint + "getIngredients/" + id;
+        Ingredient[] response = restTemplate.getForObject(url, Ingredient[].class);
+        return Arrays.asList(response);
     }
 
     private URI createUrl(String name, BackendDish dish){
