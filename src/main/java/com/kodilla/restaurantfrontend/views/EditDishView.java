@@ -6,6 +6,7 @@ import com.kodilla.restaurantfrontend.service.DishService;
 import com.kodilla.restaurantfrontend.service.IngredientService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
@@ -19,6 +20,8 @@ public class EditDishView extends VerticalLayout {
 
     private Button saveBtn = new Button("Zapisz");
     private Button cancelBtn = new Button("Anuluj");
+    private Label containIngredientsLabel = new Label("Składniki wchodzące w skład dania");
+    private Label notDependIngredientsLabel = new Label("Składniki nie przypisane do dania");
     private HorizontalLayout buttons = new HorizontalLayout();
     private Grid<Ingredient> notDependIngredientsGrid = new Grid<>(Ingredient.class);
     private Grid<Ingredient> dishIngredientsGrid = new Grid<>(Ingredient.class);
@@ -30,14 +33,17 @@ public class EditDishView extends VerticalLayout {
         dishId = Long.parseLong(ViewsContext.getInstance().getSelectedDishInDishView().getId());
         logger.info("Id selected dish: " + dishId);
         addClickListeners();
-        setGridProperties();
+        setGridsProperties();
+        setLabelsProperties();
         buttons.add(
                 saveBtn,
                 cancelBtn
         );
         add(
                 buttons,
+                notDependIngredientsLabel,
                 notDependIngredientsGrid,
+                containIngredientsLabel,
                 dishIngredientsGrid
         );
         refresh();
@@ -66,7 +72,12 @@ public class EditDishView extends VerticalLayout {
                 });
     }
 
-    public void setGridProperties(){
+    public void setLabelsProperties(){
+        containIngredientsLabel.getStyle().set("fontWeight", "bold");
+        notDependIngredientsLabel.getStyle().set("fontWeight", "bold");
+    }
+
+    public void setGridsProperties(){
         notDependIngredientsGrid.setColumns("id", "name", "type", "quantity", "measureUnit", "price", "description");
         notDependIngredientsGrid.getColumnByKey("name").setHeader("Nazwa");
         notDependIngredientsGrid.getColumnByKey("type").setHeader("Rodzaj");
