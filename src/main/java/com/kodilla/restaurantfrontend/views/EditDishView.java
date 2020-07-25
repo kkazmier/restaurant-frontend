@@ -18,11 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EditDishView extends VerticalLayout {
     private Logger logger = LoggerFactory.getLogger(EditDishView.class);
 
-    private Button saveBtn = new Button("Zapisz");
-    private Button cancelBtn = new Button("Anuluj");
-    private Label containIngredientsLabel = new Label("Składniki wchodzące w skład dania");
-    private Label notDependIngredientsLabel = new Label("Składniki nie przypisane do dania");
-    private HorizontalLayout buttons = new HorizontalLayout();
+    private Button backBtn = new Button("Powrót");
+    private Label containIngredientsLabel = new Label("Składniki wchodzące w skład dania:");
+    private Label notDependIngredientsLabel = new Label("Składniki nie przypisane do dania:");
     private Grid<Ingredient> notDependIngredientsGrid = new Grid<>(Ingredient.class);
     private Grid<Ingredient> dishIngredientsGrid = new Grid<>(Ingredient.class);
     private DishService dishService = new DishService();
@@ -35,12 +33,8 @@ public class EditDishView extends VerticalLayout {
         addClickListeners();
         setGridsProperties();
         setLabelsProperties();
-        buttons.add(
-                saveBtn,
-                cancelBtn
-        );
         add(
-                buttons,
+                backBtn,
                 notDependIngredientsLabel,
                 notDependIngredientsGrid,
                 containIngredientsLabel,
@@ -50,12 +44,8 @@ public class EditDishView extends VerticalLayout {
     }
 
     public void addClickListeners(){
-        saveBtn.addClickListener(
-                e -> saveBtn.getUI().ifPresent(
-                        ui -> ui.navigate("dishes")
-                ));
-        cancelBtn.addClickListener(
-                e -> cancelBtn.getUI().ifPresent(
+        backBtn.addClickListener(
+                e -> backBtn.getUI().ifPresent(
                         ui -> ui.navigate("dishes")
                 ));
         notDependIngredientsGrid.addItemDoubleClickListener(
