@@ -1,5 +1,6 @@
 package com.kodilla.restaurantfrontend.views;
 
+import com.kodilla.restaurantfrontend.context.ViewsContext;
 import com.kodilla.restaurantfrontend.domain.Dish;
 import com.kodilla.restaurantfrontend.domain.Ingredient;
 import com.kodilla.restaurantfrontend.forms.DishForm;
@@ -13,10 +14,12 @@ import com.vaadin.flow.data.selection.SingleSelect;
 import com.vaadin.flow.router.Route;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("dishes")
 public class DishesView extends VerticalLayout {
     private Logger logger = LoggerFactory.getLogger(DishesView.class);
+
     private DishService dishService = new DishService();
     private Button mainViewBtn = new Button("Strona główna");
     private DishForm form = new DishForm(this);
@@ -51,6 +54,7 @@ public class DishesView extends VerticalLayout {
         selectedRow.addValueChangeListener(e -> {
             selectedDish = e.getValue();
             form.getBinder().setBean(selectedDish);
+            ViewsContext.getInstance().setSelectedDishInDishView(selectedDish);
             logger.info("select: " + selectedDish.toString());
         });
     }

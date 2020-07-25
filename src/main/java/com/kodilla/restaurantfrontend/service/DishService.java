@@ -63,6 +63,18 @@ public class DishService {
         return Arrays.asList(response);
     }
 
+    public void addIngredient(Long dishId, Long ingredientId){
+        String url = endpoint + "addIngredient/" + ingredientId + "/toDish/" + dishId;
+        restTemplate.put(url, null);
+        logger.info("Add ingredient " + ingredientId + " to dish " + dishId);
+    }
+
+    public void removeIngredient(Long dishId, Long ingredientId){
+        String url = endpoint + "removeIngredient/" + ingredientId + "/fromDish/" + dishId;
+        restTemplate.put(url, null);
+        logger.info("Remove ingredient " + ingredientId + " from dish " + dishId);
+    }
+
     private URI createUrl(String name, BackendDish dish){
         URI url = UriComponentsBuilder.fromHttpUrl(endpoint + name)
                 .queryParam("name", dish.getName())

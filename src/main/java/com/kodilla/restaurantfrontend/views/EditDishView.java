@@ -1,21 +1,22 @@
 package com.kodilla.restaurantfrontend.views;
 
+import com.kodilla.restaurantfrontend.context.ViewsContext;
 import com.kodilla.restaurantfrontend.domain.Ingredient;
 import com.kodilla.restaurantfrontend.service.DishService;
 import com.kodilla.restaurantfrontend.service.IngredientService;
-import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.server.VaadinSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Route("editDish")
 public class EditDishView extends VerticalLayout {
     private Logger logger = LoggerFactory.getLogger(EditDishView.class);
+
     private Button saveBtn = new Button("Zapisz");
     private Button cancelBtn = new Button("Anuluj");
     private HorizontalLayout buttons = new HorizontalLayout();
@@ -25,10 +26,9 @@ public class EditDishView extends VerticalLayout {
     private IngredientService ingredientService = new IngredientService();
     private Long dishId;
 
-    //private ComponentUtil componentUtil;
-
     public EditDishView() {
-        //dishId = VaadinSession.getCurrent().getSession()
+        dishId = Long.parseLong(ViewsContext.getInstance().getSelectedDishInDishView().getId());
+        logger.info("Id selected dish: " + dishId);
         addClickListeners();
         setGridProperties();
         buttons.add(
@@ -40,6 +40,7 @@ public class EditDishView extends VerticalLayout {
                 notDependIngredientsGrid,
                 dishIngredientsGrid
         );
+        refresh();
     }
 
     public void addClickListeners(){
@@ -51,6 +52,18 @@ public class EditDishView extends VerticalLayout {
                 e -> cancelBtn.getUI().ifPresent(
                         ui -> ui.navigate("dishes")
                 ));
+        notDependIngredientsGrid.addItemDoubleClickListener(
+                e -> {
+                    Long ingredientId = Long.parseLong(e.getItem().getId());
+                    dishService.addIngredient(dishId, ingredientId);
+                    refresh();
+                });
+        dishIngredientsGrid.addItemDoubleClickListener(
+                e -> {
+                    Long ingredientId = Long.parseLong(e.getItem().getId());
+                    dishService.removeIngredient(dishId, ingredientId);
+                    refresh();
+                });
     }
 
     public void setGridProperties(){
