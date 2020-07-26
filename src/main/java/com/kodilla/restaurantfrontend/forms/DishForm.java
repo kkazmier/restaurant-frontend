@@ -1,10 +1,12 @@
 package com.kodilla.restaurantfrontend.forms;
 
+import com.kodilla.restaurantfrontend.context.ViewsContext;
 import com.kodilla.restaurantfrontend.domain.Dish;
 import com.kodilla.restaurantfrontend.service.DishService;
 import com.kodilla.restaurantfrontend.views.DishesView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
@@ -43,7 +45,13 @@ public class DishForm extends FormLayout {
 
     public void addClickListeners(){
         editBtn.addClickListener(e -> editBtn.getUI().ifPresent(
-                ui -> ui.navigate("editDish")
+                ui -> {
+                    if(ViewsContext.getInstance().getSelectedDishInDishView() != null) {
+                        ui.navigate("editDish");
+                    } else {
+                        Notification.show("Danie nie zostało wybrane!");
+                    }
+                }
         ));
         newBtn.addClickListener(e -> newDish());
         deleteBtn.addClickListener(e -> delete());
