@@ -1,6 +1,7 @@
 package com.kodilla.restaurantfrontend.context;
 
 import com.kodilla.restaurantfrontend.domain.Dish;
+import com.kodilla.restaurantfrontend.domain.TableOrder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ public final class ViewsContext {
     private static ViewsContext viewsContextInstance = null;
 
     private Dish selectedDishInDishView;
+    private TableOrder selectedTableOrderInTableOrdersView;
 
     private ViewsContext(){
 

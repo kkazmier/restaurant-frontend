@@ -1,15 +1,18 @@
 package com.kodilla.restaurantfrontend.forms;
 
+import com.kodilla.restaurantfrontend.context.ViewsContext;
 import com.kodilla.restaurantfrontend.domain.TableOrder;
 import com.kodilla.restaurantfrontend.service.TableOrderService;
 import com.kodilla.restaurantfrontend.views.TableOrdersView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 public class TableOrderForm extends FormLayout {
     private final Logger logger = LoggerFactory.getLogger(TableOrderForm.class);
@@ -26,6 +29,35 @@ public class TableOrderForm extends FormLayout {
         this.tableOrdersView = tableOrdersView;
         HorizontalLayout buttons = new HorizontalLayout(newBtn, editBtn, deleteBtn);
         add(status, description, buttons);
+        addClickListeners();
         binder.bindInstanceFields(this);
+        TableOrder order = new TableOrder();
+        binder.setBean(order);
+    }
+
+    public void addClickListeners(){
+        editBtn.addClickListener(e -> editBtn.getUI().ifPresent(
+                ui -> {
+                    if(ViewsContext.getInstance().getSelectedTableOrderInTableOrdersView() != null) {
+                        ui.navigate("editTableOrder");
+                    } else {
+                        Notification.show("Zamówienie nie zostało wybrane!");
+                    }
+                }
+        ));
+        newBtn.addClickListener(e -> newOrder());
+        deleteBtn.addClickListener(e -> delete());
+    }
+
+    public void newOrder(){
+
+    }
+
+    public void delete(){
+
+    }
+
+    public Binder<TableOrder> getBinder(){
+        return binder;
     }
 }

@@ -1,5 +1,6 @@
 package com.kodilla.restaurantfrontend.views;
 
+import com.kodilla.restaurantfrontend.context.ViewsContext;
 import com.kodilla.restaurantfrontend.domain.TableOrder;
 import com.kodilla.restaurantfrontend.forms.TableOrderForm;
 import com.kodilla.restaurantfrontend.service.TableOrderService;
@@ -22,15 +23,18 @@ public class TableOrdersView extends VerticalLayout {
     private TableOrder selectedTableOrder;
 
     public TableOrdersView() {
+        addClickListeners();
         add(
                 mainViewBtn,
                 form,
                 tableOrderGrid
         );
+        setGridProperties();
+        refresh();
     }
 
     public void setGridProperties(){
-        tableOrderGrid.setColumns("id", "status", "createdTime", "closedTime", "description");
+        tableOrderGrid.setColumns("id", "status", "createdTime", "closedTime", "totalCost", "description");
         tableOrderGrid.getColumnByKey("status").setHeader("Status");
         tableOrderGrid.getColumnByKey("createdTime").setHeader("Czas utworzenia");
         tableOrderGrid.getColumnByKey("closedTime").setHeader("Czas zakończenia");
@@ -39,10 +43,19 @@ public class TableOrdersView extends VerticalLayout {
     }
 
     public void addClickListeners(){
-
+        mainViewBtn.addClickListener(
+                e -> mainViewBtn.getUI().ifPresent(
+                        ui -> ui.navigate("")
+                ));
+        selectedRow.addValueChangeListener(e -> {
+            selectedTableOrder = e.getValue();
+            form.getBinder().setBean(selectedTableOrder);
+            ViewsContext.getInstance().setSelectedTableOrderInTableOrdersView(selectedTableOrder);
+            logger.info("select: " + selectedTableOrder.toString());
+        });
     }
 
     public void refresh(){
-
+        tableOrderGrid.setItems();
     }
 }
