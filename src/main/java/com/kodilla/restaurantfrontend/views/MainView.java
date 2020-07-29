@@ -8,12 +8,14 @@ import com.vaadin.flow.router.Route;
 public class MainView extends VerticalLayout {
     Button ingredientsViewBtn = new Button("Składniki");
     Button dishesViewBtn = new Button("Dania");
+    Button tableOrdersBtn = new Button("Zamówienia");
 
     public MainView() {
         addClickListeners();
         add(
                 ingredientsViewBtn,
-                dishesViewBtn
+                dishesViewBtn,
+                tableOrdersBtn
         );
     }
 
@@ -25,6 +27,10 @@ public class MainView extends VerticalLayout {
         dishesViewBtn.addClickListener(
                 e -> dishesViewBtn.getUI().ifPresent(
                         ui -> ui.navigate("dishes")
+                ));
+        tableOrdersBtn.addClickListener(
+                e -> tableOrdersBtn.getUI().ifPresent(
+                        ui -> ui.navigate("tableOrders")
                 ));
     }
 }
