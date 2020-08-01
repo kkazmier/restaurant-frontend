@@ -56,6 +56,6 @@ public class TableOrdersView extends VerticalLayout {
     }
 
     public void refresh(){
-        tableOrderGrid.setItems();
+        tableOrderGrid.setItems(tableOrderService.getTableOrders());
     }
 }
