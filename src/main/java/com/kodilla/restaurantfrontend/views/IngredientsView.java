@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 @Route("ingredients")
 public class IngredientsView extends VerticalLayout {
-    Logger logger = LoggerFactory.getLogger(IngredientsView.class);
+    private Logger logger = LoggerFactory.getLogger(IngredientsView.class);
     private IngredientService service = new IngredientService();
     private Button mainViewBtn = new Button("Strona główna");
     private Grid<Ingredient> grid = new Grid<>(Ingredient.class);
@@ -35,7 +35,7 @@ public class IngredientsView extends VerticalLayout {
     public void addClickListeners(){
         mainViewBtn.addClickListener(
                 e -> mainViewBtn.getUI().ifPresent(
-                        ui -> ui.navigate("")
+                        ui -> ui.navigate("main")
                 ));
         grid.addItemDoubleClickListener(e -> {
             logger.info("double click on: " + e.getItem().toString());

@@ -4,11 +4,11 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route("")
+@Route("main")
 public class MainView extends VerticalLayout {
-    Button ingredientsViewBtn = new Button("Składniki");
-    Button dishesViewBtn = new Button("Dania");
-    Button tableOrdersBtn = new Button("Zamówienia");
+    private Button ingredientsViewBtn = new Button("Składniki");
+    private Button dishesViewBtn = new Button("Dania");
+    private Button tableOrdersBtn = new Button("Zamówienia");
 
     public MainView() {
         addClickListeners();

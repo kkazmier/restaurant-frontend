@@ -49,7 +49,7 @@ public class DishesView extends VerticalLayout {
     public void addClickListeners(){
         mainViewBtn.addClickListener(
                 e -> mainViewBtn.getUI().ifPresent(
-                        ui -> ui.navigate("")
+                        ui -> ui.navigate("main")
                 ));
         selectedRow.addValueChangeListener(e -> {
             selectedDish = e.getValue();

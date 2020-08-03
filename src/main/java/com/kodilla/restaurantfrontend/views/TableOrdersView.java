@@ -45,7 +45,7 @@ public class TableOrdersView extends VerticalLayout {
     public void addClickListeners(){
         mainViewBtn.addClickListener(
                 e -> mainViewBtn.getUI().ifPresent(
-                        ui -> ui.navigate("")
+                        ui -> ui.navigate("main")
                 ));
         selectedRow.addValueChangeListener(e -> {
             selectedTableOrder = e.getValue();
