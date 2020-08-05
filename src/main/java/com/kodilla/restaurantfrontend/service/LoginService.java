@@ -18,9 +18,13 @@ public class LoginService {
         return pin;
     }
 
-    public void setPIN(String pin, Long id){
+    public Boolean setPIN(String pin, Long id){
         String url = endpoint + "setPIN/" + pin + "/employee/" + id;
-        restTemplate.put(url, null);
+        Boolean request = null;
+        restTemplate.put(url, request);
         logger.info("Set PIN to: " + pin);
+        return request;
     }
+
+
 }
