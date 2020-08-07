@@ -14,7 +14,7 @@ public final class OwnAppContext {
 
     private Dish selectedDishInDishView;
     private TableOrder selectedTableOrderInTableOrdersView;
-    Long actuallyActiveUserId;
+    private Long actuallyActiveUserId;
 
     private OwnAppContext(){ }
 
