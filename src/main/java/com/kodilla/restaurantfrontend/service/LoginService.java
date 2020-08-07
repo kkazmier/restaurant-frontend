@@ -28,7 +28,7 @@ public class LoginService {
 
     public Long getActuallyActiveUserId(String pin){
         String url = endpoint + "getEmployeeIdByPIN/" + pin;
-        Long id = restTemplate.getForObject(endpoint, null);
+        Long id = restTemplate.getForObject(url, Long.TYPE);
         logger.info("User id: " + id);
         return id;
     }
