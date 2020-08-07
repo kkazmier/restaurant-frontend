@@ -1,6 +1,6 @@
 package com.kodilla.restaurantfrontend.views;
 
-import com.kodilla.restaurantfrontend.context.ViewsContext;
+import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.TableOrder;
 import com.kodilla.restaurantfrontend.forms.TableOrderForm;
 import com.kodilla.restaurantfrontend.service.TableOrderService;
@@ -50,7 +50,7 @@ public class TableOrdersView extends VerticalLayout {
         selectedRow.addValueChangeListener(e -> {
             selectedTableOrder = e.getValue();
             form.getBinder().setBean(selectedTableOrder);
-            ViewsContext.getInstance().setSelectedTableOrderInTableOrdersView(selectedTableOrder);
+            OwnAppContext.getInstance().setSelectedTableOrderInTableOrdersView(selectedTableOrder);
             logger.info("select: " + selectedTableOrder.toString());
         });
     }

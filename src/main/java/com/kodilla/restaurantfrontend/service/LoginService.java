@@ -26,5 +26,10 @@ public class LoginService {
         return request;
     }
 
-
+    public Long getActuallyActiveUserId(String pin){
+        String url = endpoint + "getEmployeeIdByPIN/" + pin;
+        Long id = restTemplate.getForObject(endpoint, null);
+        logger.info("User id: " + id);
+        return id;
+    }
 }

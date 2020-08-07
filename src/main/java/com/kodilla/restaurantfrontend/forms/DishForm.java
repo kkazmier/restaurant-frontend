@@ -1,6 +1,6 @@
 package com.kodilla.restaurantfrontend.forms;
 
-import com.kodilla.restaurantfrontend.context.ViewsContext;
+import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.Dish;
 import com.kodilla.restaurantfrontend.service.DishService;
 import com.kodilla.restaurantfrontend.views.DishesView;
@@ -46,7 +46,7 @@ public class DishForm extends FormLayout {
     public void addClickListeners(){
         editBtn.addClickListener(e -> editBtn.getUI().ifPresent(
                 ui -> {
-                    if(ViewsContext.getInstance().getSelectedDishInDishView() != null) {
+                    if(OwnAppContext.getInstance().getSelectedDishInDishView() != null) {
                         ui.navigate("editDish");
                     } else {
                         Notification.show("Danie nie zostało wybrane!");

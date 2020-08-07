@@ -1,6 +1,6 @@
 package com.kodilla.restaurantfrontend.forms;
 
-import com.kodilla.restaurantfrontend.context.ViewsContext;
+import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.TableOrder;
 import com.kodilla.restaurantfrontend.service.TableOrderService;
 import com.kodilla.restaurantfrontend.views.TableOrdersView;
@@ -38,7 +38,7 @@ public class TableOrderForm extends FormLayout {
     public void addClickListeners(){
         editBtn.addClickListener(e -> editBtn.getUI().ifPresent(
                 ui -> {
-                    if(ViewsContext.getInstance().getSelectedTableOrderInTableOrdersView() != null) {
+                    if(OwnAppContext.getInstance().getSelectedTableOrderInTableOrdersView() != null) {
                         ui.navigate("editTableOrder");
                     } else {
                         Notification.show("Zamówienie nie zostało wybrane!");

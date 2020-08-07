@@ -110,6 +110,7 @@ public class LoginView extends VerticalLayout {
                         ui -> {
                             login = "";
                             refresh();
+
                         }
         ));
     }
