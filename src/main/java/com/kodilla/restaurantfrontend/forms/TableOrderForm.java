@@ -5,6 +5,7 @@ import com.kodilla.restaurantfrontend.domain.TableOrder;
 import com.kodilla.restaurantfrontend.service.TableOrderService;
 import com.kodilla.restaurantfrontend.views.TableOrdersView;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -22,13 +23,20 @@ public class TableOrderForm extends FormLayout {
     private Button newBtn = new Button("Nowy");
     private Button editBtn = new Button("Edytuj zamówienie");
     private Button deleteBtn = new Button("Usuń");
+    private Dialog notChoseOrderMessage = new Dialog();
     private TableOrderService tableOrderService = new TableOrderService();
     private Binder<TableOrder> binder = new Binder<>(TableOrder.class);
 
     public TableOrderForm(TableOrdersView tableOrdersView) {
         this.tableOrdersView = tableOrdersView;
         HorizontalLayout buttons = new HorizontalLayout(newBtn, editBtn, deleteBtn);
-        add(status, description, buttons);
+        notChoseOrderMessage.add("Zamówienie nie zostało wybrane!");
+        add(
+                status,
+                description,
+                buttons,
+                notChoseOrderMessage
+        );
         addClickListeners();
         binder.bindInstanceFields(this);
         TableOrder order = new TableOrder();
@@ -41,7 +49,7 @@ public class TableOrderForm extends FormLayout {
                     if(OwnAppContext.getInstance().getSelectedTableOrderInTableOrdersView() != null) {
                         ui.navigate("editTableOrder");
                     } else {
-                        Notification.show("Zamówienie nie zostało wybrane!");
+                        notChoseOrderMessage.open();
                     }
                 }
         ));
