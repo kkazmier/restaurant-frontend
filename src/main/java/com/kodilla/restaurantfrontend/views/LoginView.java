@@ -121,6 +121,7 @@ public class LoginView extends VerticalLayout {
                                 wrongPinMessage.open();
                             } else {
                                 ui.navigate("main");
+                                OwnAppContext.getInstance().setActuallyActiveUserId(userId);
                             }
                             pin = "";
                             refresh();

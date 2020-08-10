@@ -33,10 +33,10 @@ public class TableOrderService {
         return restTemplate.getForObject(url, TableOrder.class);
     }
 
-    public void createTableOrder(TableOrder order){
+    public void createTableOrder(TableOrder order, Long empId){
         BackendTableOrder backendTableOrder = tableOrderMapper.mapToBackendTableOrder(order);
-        URI url = createUrl("create", backendTableOrder);
-        restTemplate.postForObject(url, backendTableOrder, BackendTableOrder.class);
+        String url = "http://localhost:8081/v1/employee/createTableOrder/" + empId;
+        restTemplate.put(url, backendTableOrder, BackendTableOrder.class);
     }
 
     public void deleteTableOrder(Long id){
