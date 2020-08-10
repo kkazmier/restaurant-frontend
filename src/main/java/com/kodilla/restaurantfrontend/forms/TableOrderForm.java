@@ -80,7 +80,15 @@ public class TableOrderForm extends FormLayout {
     }
 
     public void delete(){
-
+        Long empId = OwnAppContext.getInstance().getActuallyActiveUserId();
+        Long orderId = tableOrdersView.getSelectedOrderId();
+        if(orderId == null){
+            logger.info("Selected order id is null!");
+        } else {
+            logger.info("Delete order has id: " + orderId);
+            tableOrderService.deleteTableOrder(orderId, empId);
+            tableOrdersView.refresh();
+        }
     }
 
     public Binder<TableOrder> getBinder(){

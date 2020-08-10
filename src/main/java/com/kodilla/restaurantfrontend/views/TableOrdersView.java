@@ -51,11 +51,15 @@ public class TableOrdersView extends VerticalLayout {
             selectedTableOrder = e.getValue();
             form.getBinder().setBean(selectedTableOrder);
             OwnAppContext.getInstance().setSelectedTableOrderInTableOrdersView(selectedTableOrder);
-            logger.info("select: " + selectedTableOrder.toString());
+            //logger.info("select: " + selectedTableOrder.toString());
         });
     }
 
     public void refresh(){
         tableOrderGrid.setItems(tableOrderService.getTableOrders());
+    }
+
+    public Long getSelectedOrderId(){
+        return Long.parseLong(selectedTableOrder.getId());
     }
 }

@@ -39,9 +39,9 @@ public class TableOrderService {
         restTemplate.put(url, backendTableOrder, BackendTableOrder.class);
     }
 
-    public void deleteTableOrder(Long id){
-        String url = endpoint + "delete/" + id;
-        restTemplate.delete(url);
+    public void deleteTableOrder(Long orderId, Long empId){
+        String url = "http://localhost:8081/v1/employee/deleteTableOrder/" + orderId + "/fromEmployee/" + empId;
+        restTemplate.put(url, BackendTableOrder.class);
     }
 
     public List<Dish> getDishes(Long id){
