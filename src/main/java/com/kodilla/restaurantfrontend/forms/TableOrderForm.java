@@ -74,6 +74,8 @@ public class TableOrderForm extends FormLayout {
         if(order != null && empId != null){
             tableOrderService.createTableOrder(order, empId);
             tableOrdersView.refresh();
+        } else {
+            logger.info("Order or/and empId is/are null.");
         }
     }
 
