@@ -21,9 +21,9 @@ public class TableOrderForm extends FormLayout {
     private final Logger logger = LoggerFactory.getLogger(TableOrderForm.class);
     private TableOrdersView tableOrdersView;
     private TextField status = new TextField("Status");
-    private TextField description = new TextField("Opis");
-    private Button newBtn = new Button("Nowy");
-    private Button editBtn = new Button("Edytuj zamówienie");
+    private TextField description = new TextField("Uwagi");
+    private Button newBtn = new Button("Nowe");
+    private Button editBtn = new Button("Edytuj");
     private Button deleteBtn = new Button("Usuń");
     private Dialog notChoseOrderMessage = new Dialog();
     private TableOrderService tableOrderService = new TableOrderService();
