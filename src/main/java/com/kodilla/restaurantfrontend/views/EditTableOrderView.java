@@ -8,6 +8,7 @@ import com.kodilla.restaurantfrontend.service.TableOrderService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 import org.slf4j.Logger;
@@ -19,6 +20,9 @@ public class EditTableOrderView extends VerticalLayout {
     private Button backBtn = new Button("Powrót");
     private Label availableDishesLabel = new Label("Dostępne dania");
     private Label orderDishesLabel = new Label("Dania w zamówieniu");
+    private Label totalCostLabel = new Label("Koszt zamowienia");
+    private Label getTotalCostDisplayLabel = new Label();
+    private HorizontalLayout totalCost = new HorizontalLayout();
     private Grid<Dish> availableDishesGrid = new Grid(Dish.class);
     private Grid<Dish> orderDishesGrid = new Grid(Dish.class);
     private TableOrderService orderService = new TableOrderService();
@@ -30,10 +34,12 @@ public class EditTableOrderView extends VerticalLayout {
         addClickListeners();
         setGridsProperties();
         setLabelsProperties();
+        totalCost.add(totalCostLabel, getTotalCostDisplayLabel);
         add(
                 backBtn,
                 availableDishesLabel,
                 availableDishesGrid,
+                totalCost,
                 orderDishesLabel,
                 orderDishesGrid
         );
@@ -64,6 +70,8 @@ public class EditTableOrderView extends VerticalLayout {
     public void setLabelsProperties(){
         availableDishesLabel.getStyle().set("fontWeight", "bold");
         orderDishesLabel.getStyle().set("fontWeight", "bold");
+        totalCostLabel.getStyle().set("fontSize", "32px");
+        getTotalCostDisplayLabel.getStyle().set("fontSize", "32px");
     }
 
     public void setGridsProperties(){
@@ -83,5 +91,8 @@ public class EditTableOrderView extends VerticalLayout {
     public void refresh(){
         availableDishesGrid.setItems(dishService.getDishes());
         orderDishesGrid.setItems(orderService.getDishes(orderId));
+        if(orderId != null){
+            getTotalCostDisplayLabel.setText(orderService.getTableOrder(orderId).getTotalCost());
+        }
     }
 }
