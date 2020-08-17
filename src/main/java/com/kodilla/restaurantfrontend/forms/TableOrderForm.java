@@ -63,7 +63,7 @@ public class TableOrderForm extends FormLayout {
                 }
         ));
         newBtn.addClickListener(e -> newOrder());
-        deleteBtn.addClickListener(e -> delete());
+        deleteBtn.addClickListener(e -> deleteOrder());
     }
 
     public void newOrder(){
@@ -79,7 +79,7 @@ public class TableOrderForm extends FormLayout {
         }
     }
 
-    public void delete(){
+    public void deleteOrder(){
         Long empId = OwnAppContext.getInstance().getActuallyActiveUserId();
         Long orderId = tableOrdersView.getSelectedOrderId();
         if(orderId == null){
