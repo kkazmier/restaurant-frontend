@@ -92,7 +92,7 @@ public class EditTableOrderView extends VerticalLayout {
         availableDishesGrid.setItems(dishService.getDishes());
         orderDishesGrid.setItems(orderService.getDishes(orderId));
         if(orderId != null){
-            getTotalCostDisplayLabel.setText(orderService.getTableOrder(orderId).getTotalCost());
+            getTotalCostDisplayLabel.setText(orderService.getTableOrder(orderId).getTotalCost() + "zł");
         }
     }
 }
