@@ -1,9 +1,9 @@
-package com.kodilla.restaurantfrontend.forms;
+package com.kodilla.restaurantfrontend.form;
 
 import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.Dish;
 import com.kodilla.restaurantfrontend.service.DishService;
-import com.kodilla.restaurantfrontend.views.DishesView;
+import com.kodilla.restaurantfrontend.view.DishesView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.notification.Notification;

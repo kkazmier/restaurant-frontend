@@ -1,18 +1,13 @@
-package com.kodilla.restaurantfrontend.forms;
+package com.kodilla.restaurantfrontend.form;
 
-import com.google.gson.Gson;
-import com.kodilla.restaurantfrontend.backend.BackendIngredient;
 import com.kodilla.restaurantfrontend.domain.Ingredient;
-import com.kodilla.restaurantfrontend.mapper.IngredientMapper;
 import com.kodilla.restaurantfrontend.service.IngredientService;
-import com.kodilla.restaurantfrontend.views.IngredientsView;
+import com.kodilla.restaurantfrontend.view.IngredientsView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.converter.StringToDoubleConverter;
-import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

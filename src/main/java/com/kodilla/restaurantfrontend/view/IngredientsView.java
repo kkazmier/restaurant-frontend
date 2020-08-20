@@ -1,7 +1,7 @@
-package com.kodilla.restaurantfrontend.views;
+package com.kodilla.restaurantfrontend.view;
 
 import com.kodilla.restaurantfrontend.domain.Ingredient;
-import com.kodilla.restaurantfrontend.forms.IngredientForm;
+import com.kodilla.restaurantfrontend.form.IngredientForm;
 import com.kodilla.restaurantfrontend.service.IngredientService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;

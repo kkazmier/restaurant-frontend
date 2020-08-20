@@ -1,4 +1,4 @@
-package com.kodilla.restaurantfrontend.views;
+package com.kodilla.restaurantfrontend.view;
 
 import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.Ingredient;

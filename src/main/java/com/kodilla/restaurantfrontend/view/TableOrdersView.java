@@ -1,8 +1,8 @@
-package com.kodilla.restaurantfrontend.views;
+package com.kodilla.restaurantfrontend.view;
 
 import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.TableOrder;
-import com.kodilla.restaurantfrontend.forms.TableOrderForm;
+import com.kodilla.restaurantfrontend.form.TableOrderForm;
 import com.kodilla.restaurantfrontend.service.TableOrderService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;

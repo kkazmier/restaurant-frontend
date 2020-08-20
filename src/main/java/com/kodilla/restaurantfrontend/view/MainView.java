@@ -1,4 +1,4 @@
-package com.kodilla.restaurantfrontend.views;
+package com.kodilla.restaurantfrontend.view;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
