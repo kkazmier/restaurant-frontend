@@ -9,13 +9,15 @@ public class MainView extends VerticalLayout {
     private Button ingredientsViewBtn = new Button("Składniki");
     private Button dishesViewBtn = new Button("Dania");
     private Button tableOrdersBtn = new Button("Zamówienia");
+    private Button employeesBtn = new Button("Pracownicy");
 
     public MainView() {
         addClickListeners();
         add(
                 ingredientsViewBtn,
                 dishesViewBtn,
-                tableOrdersBtn
+                tableOrdersBtn,
+                employeesBtn
         );
     }
 
@@ -31,6 +33,10 @@ public class MainView extends VerticalLayout {
         tableOrdersBtn.addClickListener(
                 e -> tableOrdersBtn.getUI().ifPresent(
                         ui -> ui.navigate("tableOrders")
+                ));
+        employeesBtn.addClickListener(
+                e -> employeesBtn.getUI().ifPresent(
+                        ui -> ui.navigate("employees")
                 ));
     }
 }
