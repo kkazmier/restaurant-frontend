@@ -17,6 +17,7 @@ public final class OwnAppContext {
     private Employee selectedEmployeeInEmployeeView;
     private TableOrder selectedTableOrderInTableOrdersView;
     private Long actuallyActiveUserId;
+    private Long selectedEmployeeInEmployeeViewId;
 
     private OwnAppContext(){ }
 

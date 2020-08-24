@@ -31,6 +31,11 @@ public class EmployeeService {
         restTemplate.postForObject(url, employeeMapper.mapToBackendEmployee(employee), BackendEmployee.class);
     }
 
+    public void updateEmployee(Employee employee){
+        String url = endpoint + "update";
+        restTemplate.put(url, employeeMapper.mapToBackendEmployee(employee));
+    }
+
     public void removeEmployee(Long id){
         String url = endpoint + "create";
     }

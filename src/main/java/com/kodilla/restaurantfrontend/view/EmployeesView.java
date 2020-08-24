@@ -1,9 +1,10 @@
 package com.kodilla.restaurantfrontend.view;
 
+import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.Employee;
-import com.kodilla.restaurantfrontend.form.EmployeeForm;
 import com.kodilla.restaurantfrontend.service.EmployeeService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.selection.SingleSelect;
@@ -13,21 +14,26 @@ import org.slf4j.LoggerFactory;
 
 @Route("employees")
 public class EmployeesView extends VerticalLayout {
-    private Logger logger = LoggerFactory.getLogger(TableOrdersView.class);
+    private Logger logger = LoggerFactory.getLogger(EmployeesView.class);
     private Button mainViewBtn = new Button("Strona główna");
+    private Button newViewBtn = new Button("Nowy");
+    private Button editViewBtn = new Button("Edytuj");
     private EmployeeService employeeService = new EmployeeService();
-    private EmployeeForm form = new EmployeeForm(this);
     private Grid<Employee> employeeGrid = new Grid<>(Employee.class);
     private SingleSelect<Grid<Employee>, Employee> selectedRow = employeeGrid.asSingleSelect();
+    private Dialog notChoseEmpMessage = new Dialog();
     private Employee selectedEmployee;
 
     public EmployeesView() {
         addClickListeners();
         setGridProperties();
+        notChoseEmpMessage.add("Pracownik nie został wybrany!");
         add(
                 mainViewBtn,
-                form,
-                employeeGrid
+                newViewBtn,
+                editViewBtn,
+                employeeGrid,
+                notChoseEmpMessage
         );
         refresh();
     }
@@ -55,6 +61,27 @@ public class EmployeesView extends VerticalLayout {
                 e -> mainViewBtn.getUI().ifPresent(
                         ui -> ui.navigate("main")
                 ));
+        editViewBtn.addClickListener(
+                e -> editViewBtn.getUI().ifPresent(
+                        ui -> {
+                            if(selectedRow != null) {
+                                logger.info(selectedRow.toString());
+                                ui.navigate("editEmployee");
+                            } else {
+                                notChoseEmpMessage.open();
+                            }
+                        }
+                ));
+        newViewBtn.addClickListener(
+                e -> newViewBtn.getUI().ifPresent(
+                        ui -> ui.navigate("newEmployee")
+                ));
+        selectedRow.addValueChangeListener(
+                e -> {
+                    selectedEmployee = e.getValue();
+                    OwnAppContext.getInstance()
+                            .setSelectedEmployeeInEmployeeViewId(Long.parseLong(selectedEmployee.getId()));
+                });
     }
 
     public void refresh(){
