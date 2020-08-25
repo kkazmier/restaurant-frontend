@@ -16,8 +16,9 @@ import org.slf4j.LoggerFactory;
 @Route("login")
 public class LoginView extends VerticalLayout {
     Logger logger = LoggerFactory.getLogger(LoginView.class);
-    private Label loginLabel = new Label("Logowanie");
-    private TextField loginField = new TextField("PIN");
+    private Label loginLabel = new Label("PIN: ");
+    private Label loginFieldValue = new Label();
+    private HorizontalLayout pinLabels = new HorizontalLayout();
     private Button one = new Button("1");
     private Button two = new Button("2");
     private Button three = new Button("3");
@@ -41,13 +42,13 @@ public class LoginView extends VerticalLayout {
     public LoginView() {
         loginLabel.getStyle().set("fontWeight", "bold");
         wrongPinMessage.add(new Label("Nie istnieje użytkownik o podanym PINie!"));
+        pinLabels.add(loginLabel, loginFieldValue);
         addClickListeners();
         add(
-                loginLabel,
                 firstRow,
                 secondRow,
                 thirdRow,
-                loginField,
+                pinLabels,
                 applyBtn,
                 wrongPinMessage
         );
@@ -138,6 +139,6 @@ public class LoginView extends VerticalLayout {
     }
 
     public void refresh(){
-        loginField.setValue(pin);
+        loginFieldValue.setText(pin);
     }
 }
