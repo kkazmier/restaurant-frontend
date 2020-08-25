@@ -1,7 +1,12 @@
 package com.kodilla.restaurantfrontend.view;
 
+import com.kodilla.restaurantfrontend.context.OwnAppContext;
+import com.kodilla.restaurantfrontend.domain.Employee;
+import com.kodilla.restaurantfrontend.service.EmployeeService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.router.Route;
 
 @Route("main")
@@ -10,10 +15,19 @@ public class MainView extends VerticalLayout {
     private Button dishesViewBtn = new Button("Dania");
     private Button tableOrdersBtn = new Button("Zamówienia");
     private Button employeesBtn = new Button("Pracownicy");
+    private Label loggedLabel = new Label();
+    private Label loggedUserNameLabel = new Label();
+    private HorizontalLayout labels = new HorizontalLayout();
+    private EmployeeService employeeService = new EmployeeService();
+    private Employee loggedEmployee;
 
     public MainView() {
+        loggedEmployee = employeeService.getEmployee(OwnAppContext.getInstance().getActuallyActiveUserId());
         addClickListeners();
+        setLabels();
+        labels.add(loggedLabel, loggedUserNameLabel);
         add(
+                labels,
                 ingredientsViewBtn,
                 dishesViewBtn,
                 tableOrdersBtn,
@@ -38,5 +52,13 @@ public class MainView extends VerticalLayout {
                 e -> employeesBtn.getUI().ifPresent(
                         ui -> ui.navigate("employees")
                 ));
+    }
+
+    public void setLabels(){
+        loggedLabel.getStyle().set("fontWeight", "bold");
+        loggedLabel.getStyle().set("fontSize", "24px");
+        loggedUserNameLabel.getStyle().set("fontSize", "24px");
+        loggedLabel.setText("Zalogowany: ");
+        loggedUserNameLabel.setText(loggedEmployee.getFirstName() + " " + loggedEmployee.getLastName());
     }
 }

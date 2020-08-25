@@ -1,6 +1,7 @@
 package com.kodilla.restaurantfrontend.view;
 
 import com.kodilla.restaurantfrontend.context.OwnAppContext;
+import com.kodilla.restaurantfrontend.service.EmployeeService;
 import com.kodilla.restaurantfrontend.service.LoginService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -9,9 +10,12 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Route("login")
 public class LoginView extends VerticalLayout {
+    Logger logger = LoggerFactory.getLogger(LoginView.class);
     private Label loginLabel = new Label("Logowanie");
     private TextField loginField = new TextField("PIN");
     private Button one = new Button("1");
@@ -29,7 +33,8 @@ public class LoginView extends VerticalLayout {
     private HorizontalLayout secondRow = new HorizontalLayout(four, five, six);
     private HorizontalLayout thirdRow = new HorizontalLayout(seven, eight, nine);
     private Dialog wrongPinMessage = new Dialog();
-    private LoginService service = new LoginService();
+    private LoginService loginService = new LoginService();
+    private EmployeeService employeeService = new EmployeeService();
     private String pin;
     private Long userId;
 
@@ -116,12 +121,15 @@ public class LoginView extends VerticalLayout {
         applyBtn.addClickListener(
                 e -> applyBtn.getUI().ifPresent(
                         ui -> {
-                            userId = service.getActuallyActiveUserId(pin);
+                            userId = loginService.getActuallyActiveUserId(pin);
                             if(userId < 0){
                                 wrongPinMessage.open();
                             } else {
-                                ui.navigate("main");
+                                logger.info("Logged user: " +
+                                        employeeService.getEmployee(userId).getFirstName() +
+                                        employeeService.getEmployee(userId).getLastName());
                                 OwnAppContext.getInstance().setActuallyActiveUserId(userId);
+                                ui.navigate("main");
                             }
                             pin = "";
                             refresh();
