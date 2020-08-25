@@ -54,7 +54,7 @@ public class TableOrderForm extends FormLayout {
     public void addClickListeners(){
         editBtn.addClickListener(e -> editBtn.getUI().ifPresent(
                 ui -> {
-                    if(OwnAppContext.getInstance().getSelectedTableOrderInTableOrdersView() != null) {
+                    if(OwnAppContext.getInstance().getSelectedTableOrderInTableOrdersViewId() != null) {
                         ui.navigate("editTableOrder");
                     } else {
                         notChoseOrderMessage.open();

@@ -29,7 +29,7 @@ public class EditTableOrderView extends VerticalLayout {
     private Long orderId;
 
     public EditTableOrderView() {
-        orderId = Long.parseLong(OwnAppContext.getInstance().getSelectedTableOrderInTableOrdersView().getId());
+        orderId = OwnAppContext.getInstance().getSelectedTableOrderInTableOrdersViewId();
         addClickListeners();
         setGridsProperties();
         setLabelsProperties();

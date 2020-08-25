@@ -50,7 +50,7 @@ public class DishesView extends VerticalLayout {
         selectedRow.addValueChangeListener(e -> {
             selectedDish = e.getValue();
             form.getBinder().setBean(selectedDish);
-            OwnAppContext.getInstance().setSelectedDishInDishView(selectedDish);
+            OwnAppContext.getInstance().setSelectedDishInDishViewId(Long.parseLong(selectedDish.getId()));
             logger.info("select: " + selectedDish.toString());
         });
     }

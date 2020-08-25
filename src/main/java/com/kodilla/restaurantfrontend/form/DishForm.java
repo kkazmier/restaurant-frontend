@@ -46,7 +46,7 @@ public class DishForm extends FormLayout {
     public void addClickListeners(){
         editBtn.addClickListener(e -> editBtn.getUI().ifPresent(
                 ui -> {
-                    if(OwnAppContext.getInstance().getSelectedDishInDishView() != null) {
+                    if(OwnAppContext.getInstance().getSelectedDishInDishViewId() != null) {
                         ui.navigate("editDish");
                     } else {
                         Notification.show("Danie nie zostało wybrane!");

@@ -26,7 +26,7 @@ public class EditDishView extends VerticalLayout {
     private Long dishId;
 
     public EditDishView() {
-        dishId = Long.parseLong(OwnAppContext.getInstance().getSelectedDishInDishView().getId());
+        dishId = OwnAppContext.getInstance().getSelectedDishInDishViewId();
         logger.info("Id selected dish: " + dishId);
         addClickListeners();
         setGridsProperties();
