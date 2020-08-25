@@ -15,6 +15,7 @@ public class MainView extends VerticalLayout {
     private Button dishesViewBtn = new Button("Dania");
     private Button tableOrdersBtn = new Button("Zamówienia");
     private Button employeesBtn = new Button("Pracownicy");
+    private Button logoutBtn = new Button("Wyloguj");
     private Label loggedLabel = new Label();
     private Label loggedUserNameLabel = new Label();
     private HorizontalLayout labels = new HorizontalLayout();
@@ -31,7 +32,8 @@ public class MainView extends VerticalLayout {
                 ingredientsViewBtn,
                 dishesViewBtn,
                 tableOrdersBtn,
-                employeesBtn
+                employeesBtn,
+                logoutBtn
         );
     }
 
@@ -51,6 +53,13 @@ public class MainView extends VerticalLayout {
         employeesBtn.addClickListener(
                 e -> employeesBtn.getUI().ifPresent(
                         ui -> ui.navigate("employees")
+                ));
+        logoutBtn.addClickListener(
+                e -> logoutBtn.getUI().ifPresent(
+                        ui -> {
+                            OwnAppContext.getInstance().setActuallyActiveUserId(-1l);
+                            ui.navigate("login");
+                        }
                 ));
     }
 
