@@ -41,13 +41,6 @@ public class TableOrderForm extends FormLayout {
         addClickListeners();
         binder.bindInstanceFields(this);
         TableOrder order = new TableOrder();
-        order.setId("0");
-        order.setStatus("Otwarte");
-        order.setCreatedTime(LocalDateTime.now());
-        order.setClosedTime(LocalDateTime.now());
-        order.setTotalCost("0.00");
-        order.setDescription("...");
-        order.setName("...");
         binder.setBean(order);
     }
 

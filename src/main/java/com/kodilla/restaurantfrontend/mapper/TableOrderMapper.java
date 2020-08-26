@@ -8,14 +8,28 @@ import java.time.LocalDateTime;
 
 public class TableOrderMapper {
     public BackendTableOrder mapToBackendTableOrder(TableOrder order){
-        return new BackendTableOrder(
-                Long.parseLong(order.getId()),
-                order.getStatus(),
-                LocalDateTime.parse(order.getCreatedTime().toString()),
-                LocalDateTime.parse(order.getClosedTime().toString()),
-                new BigDecimal(order.getTotalCost()),
-                order.getDescription(),
-                order.getName()
-        );
+        BackendTableOrder backendOrder = new BackendTableOrder();
+        if (order.getId() != null){
+            backendOrder.setId(Long.parseLong(order.getId()));
+        }
+        if (order.getStatus() != null){
+            backendOrder.setStatus(order.getStatus());
+        }
+        if (order.getCreatedTime() != null){
+            backendOrder.setCreatedTime(LocalDateTime.parse(order.getCreatedTime().toString()));
+        }
+        if (order.getClosedTime() != null){
+            backendOrder.setClosedTime(LocalDateTime.parse(order.getClosedTime().toString()));
+        }
+        if (order.getTotalCost() != null){
+            backendOrder.setTotalCost(new BigDecimal(order.getTotalCost()));
+        }
+        if (order.getDescription() != null){
+            backendOrder.setDescription(order.getDescription());
+        }
+        if (order.getName() != null){
+            backendOrder.setName(order.getName());
+        }
+        return backendOrder;
     }
 }
