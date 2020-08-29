@@ -30,12 +30,19 @@ public class TableOrderService {
 
     public TableOrder getTableOrder(Long id){
         String url = endpoint + "get/" + id;
-        return restTemplate.getForObject(url, TableOrder.class);
+        TableOrder response = restTemplate.getForObject(url, TableOrder.class);
+        return response;
     }
 
     public void createTableOrder(TableOrder order, Long empId){
         BackendTableOrder backendTableOrder = tableOrderMapper.mapToBackendTableOrder(order);
         String url = "http://localhost:8081/v1/employee/createTableOrder/" + empId;
+        restTemplate.put(url, backendTableOrder, BackendTableOrder.class);
+    }
+
+    public void save(TableOrder order){
+        BackendTableOrder backendTableOrder = tableOrderMapper.mapToBackendTableOrder(order);
+        String url = endpoint + "update";
         restTemplate.put(url, backendTableOrder, BackendTableOrder.class);
     }
 

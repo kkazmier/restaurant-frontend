@@ -2,6 +2,7 @@ package com.kodilla.restaurantfrontend.view;
 
 import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.Dish;
+import com.kodilla.restaurantfrontend.domain.TableOrder;
 import com.kodilla.restaurantfrontend.service.DishService;
 import com.kodilla.restaurantfrontend.service.TableOrderService;
 import com.vaadin.flow.component.button.Button;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
 public class EditTableOrderView extends VerticalLayout {
     private Logger logger = LoggerFactory.getLogger(EditTableOrderView.class);
     private Button backBtn = new Button("Powrót");
+    private Button closeBtn = new Button("Zamknij zamówienie");
     private Label availableDishesLabel = new Label("Dostępne dania");
     private Label orderDishesLabel = new Label("Dania w zamówieniu");
     private Label totalCostLabel = new Label("Koszt zamowienia");
@@ -24,6 +26,7 @@ public class EditTableOrderView extends VerticalLayout {
     private HorizontalLayout totalCost = new HorizontalLayout();
     private Grid<Dish> availableDishesGrid = new Grid(Dish.class);
     private Grid<Dish> orderDishesGrid = new Grid(Dish.class);
+    private HorizontalLayout buttons = new HorizontalLayout();
     private TableOrderService orderService = new TableOrderService();
     private DishService dishService = new DishService();
     private Long orderId;
@@ -34,8 +37,9 @@ public class EditTableOrderView extends VerticalLayout {
         setGridsProperties();
         setLabelsProperties();
         totalCost.add(totalCostLabel, getTotalCostDisplayLabel);
+        buttons.add(backBtn, closeBtn);
         add(
-                backBtn,
+                buttons,
                 availableDishesLabel,
                 availableDishesGrid,
                 totalCost,
@@ -49,6 +53,13 @@ public class EditTableOrderView extends VerticalLayout {
         backBtn.addClickListener(
                 e -> backBtn.getUI().ifPresent(
                         ui -> ui.navigate("tableOrders")
+                ));
+        closeBtn.addClickListener(
+                e -> closeBtn.getUI().ifPresent(
+                        ui -> {
+                            setClose();
+                            ui.navigate("tableOrders");
+                        }
                 ));
         availableDishesGrid.addItemDoubleClickListener(
                 e -> {
@@ -85,6 +96,13 @@ public class EditTableOrderView extends VerticalLayout {
         orderDishesGrid.getColumnByKey("type").setHeader("Rodzaj");
         orderDishesGrid.getColumnByKey("price").setHeader("Cena");
         orderDishesGrid.getColumnByKey("description").setHeader("Opis");
+    }
+
+    public void setClose(){
+        TableOrder order = orderService.getTableOrder(orderId);
+
+        order.setStatus("Zamknięte");
+        orderService.save(order);
     }
 
     public void refresh(){
