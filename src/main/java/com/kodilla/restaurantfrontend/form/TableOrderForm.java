@@ -8,19 +8,13 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDateTime;
-
-
 public class TableOrderForm extends FormLayout {
     private final Logger logger = LoggerFactory.getLogger(TableOrderForm.class);
     private TableOrdersView tableOrdersView;
-    private TextField status = new TextField("Status");
-    private TextField description = new TextField("Uwagi");
     private Button newBtn = new Button("Nowe");
     private Button editBtn = new Button("Edytuj");
     private Button deleteBtn = new Button("Usuń");
@@ -33,15 +27,10 @@ public class TableOrderForm extends FormLayout {
         HorizontalLayout buttons = new HorizontalLayout(newBtn, editBtn, deleteBtn);
         notChoseOrderMessage.add("Zamówienie nie zostało wybrane!");
         add(
-                status,
-                description,
                 buttons,
                 notChoseOrderMessage
         );
         addClickListeners();
-        binder.bindInstanceFields(this);
-        TableOrder order = new TableOrder();
-        binder.setBean(order);
     }
 
     public void addClickListeners(){
