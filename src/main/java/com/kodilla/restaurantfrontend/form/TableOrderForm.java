@@ -20,7 +20,6 @@ public class TableOrderForm extends FormLayout {
     private Button deleteBtn = new Button("Usuń");
     private Dialog notChoseOrderMessage = new Dialog();
     private TableOrderService tableOrderService = new TableOrderService();
-    private Binder<TableOrder> binder = new Binder<>(TableOrder.class);
 
     public TableOrderForm(TableOrdersView tableOrdersView) {
         this.tableOrdersView = tableOrdersView;
@@ -48,15 +47,13 @@ public class TableOrderForm extends FormLayout {
     }
 
     public void newOrder(){
-        TableOrder order = binder.getBean();
         Long empId = OwnAppContext.getInstance().getActuallyActiveUserId();
-        logger.info(order.toString());
         logger.info("User id: " + empId);
-        if(order != null && empId != null){
-            tableOrderService.createTableOrder(order, empId);
+        if(empId != null){
+            tableOrderService.createTableOrder(new TableOrder(), empId);
             tableOrdersView.refresh();
         } else {
-            logger.info("Order or/and empId is/are null.");
+            logger.info("Emp id is null.");
         }
     }
 
@@ -70,9 +67,5 @@ public class TableOrderForm extends FormLayout {
             tableOrderService.deleteTableOrder(orderId, empId);
             tableOrdersView.refresh();
         }
-    }
-
-    public Binder<TableOrder> getBinder(){
-        return binder;
     }
 }
