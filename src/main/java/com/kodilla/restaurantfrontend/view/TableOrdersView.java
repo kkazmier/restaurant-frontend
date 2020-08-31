@@ -56,7 +56,9 @@ public class TableOrdersView extends VerticalLayout {
 
     public void refresh(){
 
-        tableOrderGrid.setItems(tableOrderService.getTableOrders());
+        tableOrderGrid.setItems(tableOrderService.getTableOrdersByEmpId(
+                OwnAppContext.getInstance().getActuallyActiveUserId()
+        ));
     }
 
     public Long getSelectedOrderId(){

@@ -28,6 +28,12 @@ public class TableOrderService {
         return Arrays.asList(response);
     }
 
+    public List<TableOrder> getTableOrdersByEmpId(Long id){
+        String url = endpoint + "getAllByEmp/" + id;
+        TableOrder[] response = restTemplate.getForObject(url, TableOrder[].class);
+        return Arrays.asList(response);
+    }
+
     public TableOrder getTableOrder(Long id){
         String url = endpoint + "get/" + id;
         TableOrder response = restTemplate.getForObject(url, TableOrder.class);
