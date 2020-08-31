@@ -99,10 +99,7 @@ public class EditTableOrderView extends VerticalLayout {
     }
 
     public void setClose(){
-        TableOrder order = orderService.getTableOrder(orderId);
-
-        order.setStatus("Zamknięte");
-        orderService.save(order);
+        orderService.close(orderId);
     }
 
     public void refresh(){

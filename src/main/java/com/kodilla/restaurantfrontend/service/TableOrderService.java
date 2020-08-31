@@ -72,6 +72,11 @@ public class TableOrderService {
         restTemplate.put(url, null);
     }
 
+    public void close(Long id){
+        String url = endpoint + "close/" + id;
+        restTemplate.put(url, TableOrder.class);
+    }
+
     private URI createUrl(String name, BackendTableOrder order){
         URI url = UriComponentsBuilder.fromHttpUrl(endpoint + name)
                 .queryParam("status", order.getStatus())
