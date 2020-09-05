@@ -2,6 +2,7 @@ package com.kodilla.restaurantfrontend.service;
 
 import com.kodilla.restaurantfrontend.backend.BackendEmployee;
 import com.kodilla.restaurantfrontend.domain.Employee;
+import com.kodilla.restaurantfrontend.domain.Role;
 import com.kodilla.restaurantfrontend.mapper.EmployeeMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -38,5 +39,10 @@ public class EmployeeService {
 
     public void removeEmployee(Long id){
         String url = endpoint + "create";
+    }
+
+    public Role getRole(Long id){
+        String url = endpoint + "getRole/" + id;
+        return restTemplate.getForObject(url, Role.class);
     }
 }

@@ -2,8 +2,10 @@ package com.kodilla.restaurantfrontend.view;
 
 import com.kodilla.restaurantfrontend.context.OwnAppContext;
 import com.kodilla.restaurantfrontend.domain.Employee;
+import com.kodilla.restaurantfrontend.domain.Role;
 import com.kodilla.restaurantfrontend.service.EmployeeService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.html.Label;
@@ -17,6 +19,7 @@ public class MainView extends VerticalLayout {
     private Label loggedLabel = new Label();
     private Label loggedUserNameLabel = new Label();
     private HorizontalLayout labels = new HorizontalLayout();
+    private Dialog dontHavePrivilegesMessage = new Dialog();
     private EmployeeService employeeService = new EmployeeService();
     private Employee loggedEmployee;
 
@@ -25,11 +28,13 @@ public class MainView extends VerticalLayout {
         addClickListeners();
         setLabels();
         labels.add(loggedLabel, loggedUserNameLabel);
+        dontHavePrivilegesMessage.add(new Label("Nie masz wystarczających uprawnień!"));
         add(
                 labels,
                 tableOrdersBtn,
                 managementBtn,
-                logoutBtn
+                logoutBtn,
+                dontHavePrivilegesMessage
         );
     }
 
@@ -40,8 +45,13 @@ public class MainView extends VerticalLayout {
                 ));
         managementBtn.addClickListener(
                 e -> managementBtn.getUI().ifPresent(
-
-                        ui -> ui.navigate("management")
+                        ui -> {
+                            if(employeeService.getRole(OwnAppContext.getInstance().getActuallyActiveUserId()) == Role.manager){
+                                ui.navigate("management");
+                            } else {
+                                dontHavePrivilegesMessage.open();
+                            }
+                        }
                 )
         );
         logoutBtn.addClickListener(
