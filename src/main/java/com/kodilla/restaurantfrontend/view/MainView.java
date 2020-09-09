@@ -14,6 +14,7 @@ import com.vaadin.flow.router.Route;
 @Route("main")
 public class MainView extends VerticalLayout {
     private Button tableOrdersBtn = new Button("Zamówienia");
+    private Button reportBtn = new Button("Raporty");
     private Button managementBtn = new Button("Zarządzanie");
     private Button logoutBtn = new Button("Wyloguj");
     private Label loggedLabel = new Label();
@@ -32,6 +33,7 @@ public class MainView extends VerticalLayout {
         add(
                 labels,
                 tableOrdersBtn,
+                reportBtn,
                 managementBtn,
                 logoutBtn,
                 dontHavePrivilegesMessage
@@ -42,6 +44,10 @@ public class MainView extends VerticalLayout {
         tableOrdersBtn.addClickListener(
                 e -> tableOrdersBtn.getUI().ifPresent(
                         ui -> ui.navigate("tableOrders")
+                ));
+        reportBtn.addClickListener(
+                e -> reportBtn.getUI().ifPresent(
+                        ui -> ui.navigate("reports")
                 ));
         managementBtn.addClickListener(
                 e -> managementBtn.getUI().ifPresent(
